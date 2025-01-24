@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.8.4",
+        "autosize": "^4.0.2",
+        "axios": "^0.21",
+        "bootstrap": "^5.0.0-beta2",
+        "browser-sync": "^2.26.14",
+        "browser-sync-webpack-plugin": "^2.2.2",
+        "choices.js": "^9.0.1",
+        "imask": "^6.0.7",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^10.1.1",
+        "vue-loader": "^15.9.6"
+    },
+    "dependencies": {
+        "@splidejs/splide": "^2.4.21",
+        "croppr": "^2.3.1",
+        "vanilla-image-cropper": "^1.4.0"
+    }
+}

@@ -1,0 +1,28 @@
+@import "tabler-core";
+@import "~croppr/dist/croppr.css";
+.icon-tabler {
+  margin: 0 !important;
+}
+
+.choices {
+  position: relative;
+  .dropdown-menu {
+    width: 100%;
+  }
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+ul.pagination {
+  margin: 0;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.table > :not(caption) > * > * {
+  box-shadow: none;
+}

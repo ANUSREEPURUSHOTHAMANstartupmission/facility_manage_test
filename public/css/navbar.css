@@ -1,0 +1,325 @@
+#navbar {
+  padding: 1rem 0 1rem 0;
+  z-index: 10;
+  background: rgb(34, 35, 40);
+  width: 100%;
+}
+@media (min-width: 992px) {
+  #navbar {
+    position: absolute;
+    padding: 1rem 0 1rem 0;
+    background: white;
+  }
+}
+@media (min-width: 992px) {
+  #navbar.alter {
+    background-color: transparent;
+  }
+}
+#navbar.alter .logo {
+  background-image: url("/img/logo.svg");
+}
+#navbar.alter li a {
+  color: white !important;
+}
+#navbar.alter li ul a {
+  color: #7c529c !important;
+}
+#navbar.alter .login-user a {
+  color: white;
+}
+#navbar.alter .login-user .text-muted {
+  color: white !important;
+}
+@media (min-width: 992px) {
+  #navbar.other {
+    background-color: transparent;
+  }
+}
+#navbar.open .menu {
+  transform: translateX(0);
+}
+#navbar .logo {
+  height: 70px;
+  width: 300px;
+  background-image: url("/img/logo-white.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 0 auto;
+  background-position: center;
+}
+@media (min-width: 992px) {
+  #navbar .logo {
+    margin: unset;
+    background-position: unset;
+    background-image: url("/img/logo.svg");
+  }
+}
+#navbar .menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #040e26;
+  margin-left: auto;
+  margin-right: 10%;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 75%;
+  height: 100%;
+  transition: all 500ms ease-in-out;
+  transform: translateX(-100%);
+  transform-origin: left center;
+}
+#navbar .menu .logo {
+  display: none;
+}
+@media (min-width: 992px) {
+  #navbar .menu {
+    position: relative;
+    width: auto;
+    left: 10%;
+    top: auto;
+    height: auto;
+    transform: scaleX(1);
+    background: transparent;
+  }
+  #navbar .menu.sticky {
+    background: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    display: flex;
+    padding: 1rem 0;
+  }
+  #navbar .menu.sticky a {
+    color: white;
+  }
+  #navbar .menu.sticky .logo {
+    display: block;
+    background-image: url("/img/logo-white.svg");
+    padding: 0 4rem;
+    margin-left: 4rem;
+  }
+  #navbar .menu.sticky ul {
+    margin-left: auto;
+    margin-right: 3rem;
+  }
+}
+#navbar .menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 992px) {
+  #navbar .menu ul {
+    flex-direction: row;
+  }
+}
+#navbar .menu ul li {
+  position: relative;
+}
+#navbar .menu ul li.login {
+  background: #fd226a;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+  transition: all 500ms ease;
+}
+#navbar .menu ul li.login:hover {
+  transform: rotateZ(-15deg);
+}
+#navbar .menu ul li.login:hover span {
+  transform: rotateZ(15deg);
+}
+#navbar .menu ul li.login a span {
+  color: white;
+  display: inline-block;
+  transition: all 500ms ease;
+}
+#navbar .menu ul li.login a span:before {
+  background: transparent;
+}
+#navbar .menu ul li:hover a span:before {
+  transform: scaleX(1);
+}
+#navbar .menu ul li:hover ul {
+  display: block;
+  opacity: 1;
+}
+#navbar .menu ul li a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  color: white;
+  text-decoration: none;
+  position: relative;
+}
+@media (min-width: 768px) {
+  #navbar .menu ul li a {
+    color: rgb(35, 35, 35);
+  }
+}
+#navbar .menu ul li a.active span:before {
+  transform: scaleX(1);
+}
+#navbar .menu ul li a span {
+  position: relative;
+}
+#navbar .menu ul li a span:before {
+  content: "";
+  display: inline-block;
+  width: calc(100% + 4px);
+  height: 5px;
+  border-radius: 25px;
+  background: #fd226a;
+  position: absolute;
+  bottom: 2px;
+  left: -2px;
+  transition: all 200ms ease-in;
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: -1;
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#navbar .menu ul li ul {
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  width: 250px;
+  background: #ffffff;
+  border-radius: 1rem;
+  margin-left: -10px;
+  opacity: 0;
+  z-index: 5;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#navbar .menu ul li ul li {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+}
+#navbar .menu ul li ul li:hover::before {
+  transform: scaleX(1);
+}
+#navbar .menu ul li ul li:hover a {
+  transform: translateX(0);
+}
+#navbar .menu ul li ul li::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 5px;
+  background: #fd226a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#navbar .menu ul li ul li a {
+  padding: 0;
+  margin-left: 10px;
+  transform: translateX(-20px);
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: rgb(35, 35, 35);
+}
+
+.hamburger-menu {
+  position: fixed;
+  right: 20px;
+  width: 100%;
+  max-width: 24px;
+  height: 22px;
+  margin-left: auto;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+.hamburger-menu span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #ea0763;
+  border-radius: 10px;
+  opacity: 1;
+  left: 0;
+  transition: 0.25s ease-in-out;
+}
+.hamburger-menu span:nth-child(1) {
+  top: 2px;
+}
+.hamburger-menu span:nth-child(2), .hamburger-menu span:nth-child(3) {
+  top: 10px;
+}
+.hamburger-menu span:nth-child(4) {
+  top: 18px;
+}
+.hamburger-menu.open span:nth-child(1) {
+  top: 18px;
+  width: 0;
+  left: 50%;
+}
+.hamburger-menu.open span:nth-child(2) {
+  transform: rotate(45deg);
+}
+.hamburger-menu.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+.hamburger-menu.open span:nth-child(4) {
+  top: 18px;
+  width: 0;
+  left: 50%;
+}
+
+#prenav {
+  background: #040e26;
+  padding: 0.5rem 0;
+  color: #999;
+  display: none;
+}
+@media (min-width: 992px) {
+  #prenav {
+    display: block;
+  }
+}
+#prenav .button {
+  background: #00afef;
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  transition: all 500ms ease;
+  display: block;
+  width: 150px;
+  text-align: center;
+  margin: 0 auto;
+}
+#prenav .button:hover {
+  transform: translateX(10px);
+}
+
+.login-user {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-user a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.login-user .avatar {
+  background-color: #ccc;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

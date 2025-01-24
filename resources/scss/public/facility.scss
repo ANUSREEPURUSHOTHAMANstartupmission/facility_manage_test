@@ -1,0 +1,214 @@
+@import '_mixins';
+.datetimes {
+  margin-right: 1rem;
+}
+
+.datetimes input {
+  // margin: 0;
+  // color: #a3a3a3;
+  // padding: 10px;
+  // font-size: 16px;
+  // border: 1px solid #e1e5e9!important;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 1px 6px 0px rgb(0 0 0 / 10%);
+  font-size: 16px;
+  font-weight: 600;
+  height: auto;
+  padding: 10px 16px;
+  line-height: 30px;
+  margin: 0 0 15px 0;
+  position: relative;
+  background-color: #fff;
+  text-align: left;
+  color: #888;
+  transition: color 0.3s !important;
+}
+
+.datetimes label {
+  font-weight: 100;
+  color: #a3a3a3;
+  font-size: 12px;
+}
+
+.chk-btn {
+  padding: 10px;
+  /* margin-left: 1rem; */
+  margin-top: 1rem;
+  background: #00afef;
+  color: white;
+  font-size: 16px;
+  border: 1px solid #00afef;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 1px 6px 0px rgb(0 0 0 / 20%);
+  // border-radius: 5px;
+  transition: all 500ms ease;
+  &:hover {
+    transform: translateX(5px);
+  }
+}
+
+.chk-btn svg {
+  width: 50px;
+  height: 25px;
+  display: none;
+}
+
+.chk-btn span {
+  /* display: none; */
+}
+
+.addon {
+  padding: 10px;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  border: 1px solid #00afef;
+}
+
+.book-btn {
+  padding: 10px;
+  /* margin-left: 1rem; */
+  margin-top: 1rem;
+  background: #029c30;
+  color: white;
+  font-size: 16px;
+  border: 1px solid #0aa105;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 1px 6px 0px rgb(0 0 0 / 20%);
+  transition: all 500ms ease;
+  &:hover {
+    transform: translateX(5px);
+  }
+}
+
+.facility-price {
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: green;
+  font-weight: 700;
+  text-align: right;
+}
+
+.facility-price span {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.facility-price small {
+  font-size: .75rem;
+  color: black;
+  font-weight: 300;
+}
+
+.header-section {
+  @include my_bp(sm) {
+    padding-top: 102px;
+  }
+}
+
+.facility-section {
+  padding-bottom: 100px;
+  padding-top: 30px;
+  h1 {
+    font-weight: 300;
+  }
+  .content {
+    font-size: 1.1rem;
+    font-weight: 300;
+    text-align: justify;
+  }
+  .booking {
+    background-color: #f9f9f9;
+    border-radius: 3px;
+    padding: 32px;
+  }
+}
+
+.date-picker {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0px rgb(0 0 0 / 10%);
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    padding: 10px 16px;
+    line-height: 30px;
+    // margin: 0 0 15px 0;
+    position: relative;
+    background-color: #fff;
+    text-align: left;
+    color: #888;
+    transition: color 0.3s !important;
+    width: 100%;
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: auto;
+      color: transparent;
+      background: transparent;
+    }
+    &::-webkit-inner-spin-button {
+      z-index: 1;
+    }
+    &::-webkit-clear-button {
+      z-index: 1;
+    }
+  }
+  select{
+    padding: 14px;
+  }
+  label {
+    font-weight: 100;
+    color: #a3a3a3;
+    font-size: 12px;
+  }
+}
+
+.rate-picker {
+  margin-top: 1rem;
+  width: 100%;
+  .form-selectgroup-label {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0px rgb(0 0 0 / 10%);
+  }
+  .form-selectgroup-input {
+    &:checked {
+      &+.form-selectgroup-label {
+        background-color: #fd226a;
+        color: white;
+        .text-muted {
+          color: #fee !important;
+        }
+      }
+    }
+  }
+  .form-selectgroup-label {
+    color: #333;
+  }
+  label {
+    font-weight: 100;
+    color: #a3a3a3;
+    font-size: 12px;
+  }
+}
