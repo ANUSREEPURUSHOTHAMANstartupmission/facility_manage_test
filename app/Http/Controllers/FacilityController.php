@@ -50,11 +50,12 @@ class FacilityController extends Controller
       
         $month = Carbon::now()->format('M'); // Current month (e.g., 01 for January)
         $year = Carbon::now()->format('Y'); // Current year (e.g., 2025)
-       
+
         $start = Carbon::parse($month.' '.$year)->startOfMonth();
         $end = $start->copy()->endOfMonth()->endOfDay();
+
        
-        $bookings = Booking::where('status','<>','cancelled')->whereIn('bookings.location_id',auth()->user()->locations->pluck('id')->toArray())
+        $bookings = Booking::where('status','<>','cancelled')
             ->where(function ($query) use ($start, $end) {
                 $query->where(function ($q) use ($start, $end) {
                     $q->where('start', '>=', $start)
@@ -72,7 +73,7 @@ class FacilityController extends Controller
             })
             ->when($facility, function($query, $facility){
                 $query->whereHas('facilities', function($q) use($facility){
-                    $q->where('facility_id', $facility);
+                    $q->where('facility_id', $facility->id);
                 });
             })
             ->orderBy('start')->get()
@@ -85,13 +86,19 @@ class FacilityController extends Controller
                 }
             ]);
 
+        // dd($bookings, $facility);
+
         $days = Carbon::parse($month." ".$year)->daysInMonth;
 
         $empty = Carbon::parse($month." ".$year)->firstOfMonth()->dayOfWeek;
 
         $month = $month ?? date('M');
-        
-        return view('facility', compact('facility', 'available', 'rate', 'hours','month', 'year', 'bookings', 'days', 'empty'));
+
+        $holidays = Holiday::whereMonth('date', $start->month)
+        ->whereYear('date', $start->year)
+        ->get();
+
+        return view('facility', compact('facility', 'available', 'rate', 'hours','month', 'year', 'bookings', 'days', 'empty','holidays'));
     }
 
     public function store(Facility $facility, Request $request){
@@ -101,6 +108,8 @@ class FacilityController extends Controller
         $end_date = $start_date->copy()->addHours($rate_data->hours);
 
         $available = BookingHelper::check_availability($facility, $start_date->toDateTimeString(), $end_date->toDateTimeString()) && BookingHelper::not_holiday($start_date, $facility) && BookingHelper::checkTime($start_date, $facility) ;
+
+
 
         if($available){
 

@@ -4,36 +4,69 @@
     <link rel="stylesheet" href="{{asset('/css/facility.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
-    <style>
-    .day_head{
-      flex: 0 0 auto;
-      width: 14%;
-      border: 1px solid rgba(101, 109, 119, 0.16);
-      padding: 10px;
-      background: #ccc;
-      font-weight: bold;
+<style>
+    .day_head {
+        flex: 0 0 auto;
+        width: 14%;
+        border: 1px solid rgba(101, 109, 119, 0.16);
+        padding: 5px; /* Reduced padding */
+        background: #ccc;
+        font-weight: bold;
+        font-size: 12px; /* Smaller font size */
+        text-align: center;
+        font-weight: bold;
+
     }
-    .day{
-      flex: 0 0 auto;
-      width: 14%;
-      border: 1px solid rgba(101, 109, 119, 0.16);
-      padding: 10px;
-      height: 150px;
-      overflow-y: scroll;
+    .day {
+        flex: 0 0 auto;
+        width: 14%;
+        border: 1px solid rgba(101, 109, 119, 0.16);
+        padding: 0; 
+        height: 50px;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        overflow-y: scroll;
+        text-align: center;
+        font-size: 10px;
+        font-weight:normal;
     }
-    .time{
-      font-weight: bold;
-      font-size: 12px;
+    .bg-secondary {
+        background-color: rgb(151, 154, 158) !important; 
     }
-    .booking{
-      border: 10px;
-      padding: 5px;
-      display: block;
-      background: #ccc3;
-      border-radius: 5px;
-      margin-bottom: 2px;
+    .bg-light {
+        background-color: rgb(222, 224, 226) !important; 
     }
-  </style>
+    .bg-red {
+        background-color:rgba(234, 16, 35, 0.61) !important;
+    }
+    .bg-azure {
+        background-color: #d1ecf1 !important;
+    }
+    .bg-orange {
+        background-color: #fff3cd !important;
+    }
+    .bg-green {
+        background-color: #d4edda !important;
+    }
+    .time {
+        font-size: 10px; 
+        display: block;
+        margin: 2px 0;    }
+    .booking {
+        border: 1px solid #ccc; 
+        padding: 2px; 
+        display: block;
+        background: rgba(204, 204, 204, 0.3); 
+        border-radius: 3px; 
+        margin-bottom: 2px;
+        font-size: 10px; 
+        overflow: hidden;
+        white-space: nowrap; 
+        text-overflow: ellipsis;
+    }
+</style>
+
 @endsection
 
 @section('content')
@@ -55,9 +88,9 @@
     <div class="container mt-sm-5">
         <div class="row">
             <div class="col-sm-8">
-                <h1>{{$facility->name}}</h1>
+                <h3>{{$facility->name}}</h3>
                 <p class="text-muted">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <circle cx="12" cy="11" r="3"></circle>
                         <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
@@ -212,6 +245,92 @@
                     @endif
                 </div>
 
+<!-- calendar -->
+                <div class=" mt-4">
+                    <div class="row row-deck row-cards justify-content-center align-items-start">
+                        <div class="col-sm-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div class="flex flex-col">
+                                        <div class="row">
+
+                                            @foreach (array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') as $item)
+                                                <div class="day_head">{{$item}}</div>
+                                            @endforeach
+
+                                            @for ($i=0; $i<$empty; $i++)
+                                                <div class="day align-middle text-center"></div>
+                                            @endfor
+
+                                            <!-- ##### -->
+                                                @php
+                                                    // Map month name to numeric value if $month is a string
+                                                    if (!is_numeric($month)) {
+                                                        $monthMap = [
+                                                            "Jan" => 1, "Feb" => 2, "Mar" => 3, "Apr" => 4, 
+                                                            "May" => 5, "Jun" => 6, "Jul" => 7, "Aug" => 8, 
+                                                            "Sep" => 9, "Oct" => 10, "Nov" => 11, "Dec" => 12
+                                                        ];
+                                                        $month = $monthMap[$month] ?? 1; // Default to January if not found
+                                                    }
+
+                                                    $today = Carbon\Carbon::today(); // Get today's date
+                                                @endphp
+
+                                                @for ($i=1; $i<=$days; $i++)
+                                                    @php
+                                                        $availability = $facility->availability; 
+                                                        $currentDate = Carbon\Carbon::create($year, $month, $i); 
+                                                        $dayOfWeek = $currentDate->dayOfWeek;
+                                                        $dayClass = '';
+
+                                                        if (!in_array($dayOfWeek, $availability)) {
+                                                            $dayClass = 'bg-red'; // Gray for unavailable days
+                                                        } 
+
+                                                        $isHoliday = $holidays->contains(function ($holiday) use ($currentDate) {
+                                                            return $holiday->date === $currentDate->toDateString();
+                                                        });
+
+                                                        if ($isHoliday) {
+                                                            $dayClass = 'bg-red'; // Red for holidays
+                                                        }
+
+                                                        if ($bookings->keys()->contains($facility->name."|".$facility->id) && 
+                                                            $bookings[$facility->name."|".$facility->id]->keys()->contains($i)) {
+                                                            foreach ($bookings[$facility->name."|".$facility->id][$i] as $item) {
+                                                                if ($item->status == "approved") {
+                                                                    $dayClass = 'bg-red'; // Red for approved bookings
+                                                                }
+                                                                break; // Exit loop after assigning the first applicable class
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    <div class="day {{$dayClass}}">
+                                                        <strong>{{$i}}</strong>
+                                                    </div>
+                                                @endfor
+
+
+
+
+                                            <!-- ###### -->
+
+                                        </div>  
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<!-- calendar -->
+
+
             </div>
         </div>
     </div>
@@ -228,60 +347,12 @@
 
 
 
-<div>
-  <div class="row row-deck row-cards justify-content-center align-items-start">
-    <div class="col-sm-12">
-      <div class="card">
 
-        {{-- <pre>{{$bookings->keys()->contains($facility->name."|".$facility->id)}}</pre>
-        <pre>{{$bookings[$facility->name."|".$facility->id]}}</pre> --}}
 
-        <div class="card-body">
-          <div class="flex flex-col">
-            <div class="row">
 
-              @foreach (array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat') as $item)
-                <div class="day_head">{{$item}}</div>
-              @endforeach
 
-              @for ($i=0; $i<$empty; $i++)
-                <div class="day"></div>
-              @endfor
 
-              @for ($i=1; $i<=$days; $i++)
-                <div class="day">
-                  <strong>{{$i}}</strong>
 
-                  @if( $bookings->keys()->contains($facility->name."|".$facility->id) && $bookings[$facility->name."|".$facility->id]->keys()->contains($i))
-                    @foreach ($bookings[$facility->name."|".$facility->id][$i] as $item)
-                      @php
-                        $class = $item->status=="pending"? 'bg-red':'';
-                        $class .= $item->status=="requested"? 'bg-azure':'';
-                        $class .= $item->status=="approved"? 'bg-orange':'';
-                        $class .= $item->status=="confirmed"? 'bg-green':'';
-                      @endphp
-                      <a href="{{route('admin.bookings.show',[$item->id])}}" class="booking">
-                        <span class="time">{{Carbon::parse($item->start)->format('g:i a')}}</span> - 
-                        <span class="time">{{Carbon::parse($item->end)->format('g:i a')}}</span>
-                        @foreach ($item->facilities as $fitem)
-                          <span class="badge {{$class}}">{{$fitem->name}}</span>                            
-                        @endforeach
-                      </a>
-                    @endforeach
-                  @endif
-
-                </div>
-              @endfor
-
-            </div>  
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
     window.start_date = "{{ app('request')->input('start') }}";
