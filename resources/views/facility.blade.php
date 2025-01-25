@@ -246,7 +246,7 @@
                 </div>
 
 <!-- calendar -->
-                <div class=" mt-4">
+                <div class=" mt-2">
                     <div class="row row-deck row-cards justify-content-center align-items-start">
                         <div class="col-sm-12">
                             <div class="card">
